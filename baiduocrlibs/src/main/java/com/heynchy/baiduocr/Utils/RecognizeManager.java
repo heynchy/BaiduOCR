@@ -273,6 +273,11 @@ public class RecognizeManager {
         });
     }
 
+    /**
+     * 通用文字识别 ----- 生僻字版
+     * @param filePath
+     * @param listener
+     */
     public static void recGeneralEnhanced(String filePath, final ResultListener listener) {
         GeneralBasicParams param = new GeneralBasicParams();
         param.setDetectDirection(true);
@@ -280,13 +285,29 @@ public class RecognizeManager {
         OCR.getInstance().recognizeGeneralEnhanced(param, new OnResultListener<GeneralResult>() {
             @Override
             public void onResult(GeneralResult result) {
-                StringBuilder sb = new StringBuilder();
-                for (WordSimple wordSimple : result.getWordList()) {
-                    WordSimple word = wordSimple;
-                    sb.append(word.getWords());
-                    sb.append("\n");
-                }
-//                listener.onResult(result.getJsonRes());
+                resultInfo(result, listener, true);
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                listener.onError(error.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 通用文字识别 ----- 生僻字版
+     * @param file
+     * @param listener
+     */
+    public static void recGeneralEnhanced(File file, final ResultListener listener) {
+        GeneralBasicParams param = new GeneralBasicParams();
+        param.setDetectDirection(true);
+        param.setImageFile(file);
+        OCR.getInstance().recognizeGeneralEnhanced(param, new OnResultListener<GeneralResult>() {
+            @Override
+            public void onResult(GeneralResult result) {
+                resultInfo(result, listener, true);
             }
 
             @Override

@@ -21,6 +21,7 @@ import java.io.File;
 import static com.heynchy.baiduocr.Utils.Constant.REC_ACCURATE_LOCATION;
 import static com.heynchy.baiduocr.Utils.Constant.REC_GENERAL_ACCURATE;
 import static com.heynchy.baiduocr.Utils.Constant.REC_GENERAL_BASIC;
+import static com.heynchy.baiduocr.Utils.Constant.REC_GENERAL_ENHANCED;
 import static com.heynchy.baiduocr.Utils.Constant.REC_GENERAL_LOCATION;
 
 
@@ -46,6 +47,7 @@ public class BaiduOCRUtil {
             case REC_GENERAL_ACCURATE: // 通用文字识别对应的UI界面----高精度
             case REC_GENERAL_LOCATION: // 通用文字识别---带位置信息
             case REC_ACCURATE_LOCATION:// 通用文字识别---高精度且带位置信息
+            case REC_GENERAL_ENHANCED: // 通用文字识别---生僻字
                 Intent intent = new Intent(context, CameraActivity.class);
                 intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                         OCRFileUtil.getSaveFile(context).getAbsolutePath());
@@ -89,6 +91,10 @@ public class BaiduOCRUtil {
                 // 通用文字识别（高精度带位置信息）
                 RecognizeManager.recAccurate(filePath, listener);
                 break;
+            case REC_GENERAL_ENHANCED:
+                // 通用文字识别（生僻字版）
+                RecognizeManager.recGeneralEnhanced(filePath, listener);
+                    break;
         }
     }
 
@@ -116,6 +122,14 @@ public class BaiduOCRUtil {
             case REC_GENERAL_LOCATION:
                 // 通用文字识别（带位置信息）
                 RecognizeManager.recGeneral(file, listener);
+                break;
+            case REC_ACCURATE_LOCATION:
+                // 通用文字识别（高精度带位置信息）
+                RecognizeManager.recAccurate(file, listener);
+                break;
+            case REC_GENERAL_ENHANCED:
+                // 通用文字识别（生僻字版）
+                RecognizeManager.recGeneralEnhanced(file, listener);
                 break;
         }
     }
