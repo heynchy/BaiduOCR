@@ -8,7 +8,7 @@
 #### 1. Add dependency
 ```groovy
    dependencies {
-       implementation 'com.github.heynchy:BaiduOCR:0.0.3'
+       implementation 'com.github.heynchy:BaiduOCR:v0.1'
    }
 ```
 #### 2. 配置信息
